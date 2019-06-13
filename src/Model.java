@@ -11,8 +11,8 @@ enum selectedTool {
 class CustomShape {
     Shape shape;
     Color lineColor = Color.BLUE;
-    Color fillColor = null;
-    Integer thickness = 1;
+    Color borderColor = Color.BLACK;
+    Integer thickness = 5;
 
     CustomShape(Shape newShape, Color newColor, Integer newThickness) {
         shape = newShape;
@@ -24,18 +24,12 @@ class CustomShape {
 public class Model {
     private selectedTool currentTool = selectedTool.SELECT;
     private Color currentColor = Color.BLUE;
-    private Integer currentLine = 1;
+    private Integer currentLine = 5;
     private CustomShape drawingShape = null; // null for now, change later
     private CustomShape selectedShape = null;
 
     public int getLineThickness() {
-        if (currentLine == 1) {
-            return 1;
-        } else if (currentLine == 5) {
-            return 5;
-        } else {
-            return 10;
-        }
+        return currentLine;
     }
 
     public Color getCurrentColor() {

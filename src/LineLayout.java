@@ -21,7 +21,7 @@ class LineLayout extends JPanel {
                 lineThick1.setForeground(Color.RED);
                 lineThick2.setForeground(Color.BLACK);
                 lineThick3.setForeground(Color.BLACK);
-                model.setCurrentLine(1);
+                model.setCurrentLine(5);
             }
         });
 
@@ -30,7 +30,7 @@ class LineLayout extends JPanel {
                 lineThick2.setForeground(Color.RED);
                 lineThick1.setForeground(Color.BLACK);
                 lineThick3.setForeground(Color.BLACK);
-                model.setCurrentLine(5);
+                model.setCurrentLine(10);
             }
         });
 
@@ -39,7 +39,7 @@ class LineLayout extends JPanel {
                 lineThick3.setForeground(Color.RED);
                 lineThick2.setForeground(Color.BLACK);
                 lineThick1.setForeground(Color.BLACK);
-                model.setCurrentLine(10);
+                model.setCurrentLine(20);
             }
         });
 

@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -129,34 +130,67 @@ class DrawingCanvas extends JPanel {
         } return false;
     }
 
+    private Line2D.Float dummyLineObject = new Line2D.Float(0,0,0,0);
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
         for (CustomShape s: shapes) {
             g2.setStroke(new BasicStroke(s.thickness));
-            g2.setPaint(s.lineColor);
+
+            if (!s.shape.getClass().equals(dummyLineObject.getClass())) {
+                g2.setColor(s.lineColor);
+                g2.fill(s.shape);
+                g2.setColor(s.borderColor);
+            } else {
+                g2.setColor(s.lineColor);
+            }
             g2.draw(s.shape);
         }
 
         if (isDrawingTool()) {
             if (startDrag != null && endDrag != null) {
-                g2.setPaint(model.getCurrentColor());
                 g2.setStroke(new BasicStroke(model.getLineThickness()));
                 CustomShape cShape = createTheShape();
-                g2.draw(cShape.shape);
+                if (model.getCurrentTool() == selectedTool.CIRCLE || model.getCurrentTool() == selectedTool.SQUARE) {
+                    g2.setColor(model.getCurrentColor());
+                    g2.fill(cShape.shape);
+                    g2.setColor(cShape.borderColor);
+                    g2.draw(cShape.shape);
+                } else {
+                    g2.setColor(model.getCurrentColor());
+                    g2.draw(cShape.shape);
+                }
             }
         }
     }
 
     public void eraseShape(int x, int y) {
-        for (int i = shapes.size(); i > 0; --i) {
-            if (shapes.get(i-1).shape.contains(x,y) || shapes.get(i-1).shape.intersects(x - 2, y - 2, 5, 5)) {
-                shapes.remove(i-1); // removes starting at (2,2) off from origin with a 5 by 5 box
+        for (int i = 0; i < shapes.size(); ++i) {
+            if (shapes.get(i).shape.contains(x,y) || shapes.get(i).shape.intersects(x-4,y-4, 7, 7)) {
+                shapes.remove(i);
                 break;
             }
         }
     }
+
+//    public void fillShape(int x, int y) {
+//        for (int i = 0; i < shapes.size(); ++i) {
+//            if (shapes.get(i).shape.contains(x,y) || shapes.get(i).shape.intersects(x-4,y-4, 7, 7)) {
+//                shapes.lin
+//                break;
+//            }
+//        }
+//    }
+
+//    public void selectShape(int x, int y) {
+//        for (int i = shapes.size(); i > 0; --i) {
+//            if (shapes.get(i-1).shape.contains(x, y) || shapes.get(i-1).shape.intersects(x - 1, y - 1, 5, 5)) {
+//                shapes.get(i-1).c
+//            }
+//        }
+//    }
 
     private CustomShape currentDrawingShape;
 
@@ -173,6 +207,8 @@ class DrawingCanvas extends JPanel {
 
                 if (model.getCurrentTool() == selectedTool.ERASER) {
                     eraseShape(e.getX(), e.getY());
+                } else if (model.getCurrentTool() == selectedTool.SELECT) {
+
                 }
 
                 repaint();
