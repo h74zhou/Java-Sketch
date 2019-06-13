@@ -8,14 +8,6 @@ enum selectedTool {
     SELECT, ERASE, LINE, CIRCLE, RECTANGLE, FILL
 }
 
-enum selectedColor {
-    BLUE, RED, ORANGE, YELLOW, GREEN, PINK
-}
-
-enum selectedLine {
-    THIN, MEDIUM, THICK
-}
-
 class CustomShape {
     Shape shape;
     Color lineColor = Color.BLUE;
@@ -31,90 +23,48 @@ class CustomShape {
 
 public class Model {
     private selectedTool currentTool = selectedTool.SELECT;
-    private selectedColor currentColor = selectedColor.BLUE;
-    private selectedLine currentLine = selectedLine.THIN;
+    private Color currentColor = Color.BLUE;
+    private Integer currentLine = 1;
     private CustomShape drawingShape = null; // null for now, change later
     private CustomShape selectedShape = null;
 
     public int getLineThickness() {
-        if (currentLine == selectedLine.THIN) {
+        if (currentLine == 1) {
             return 1;
-        } else if (currentLine == selectedLine.MEDIUM) {
-            return 3;
-        } else {
+        } else if (currentLine == 5) {
             return 5;
+        } else {
+            return 10;
         }
     }
 
     public Color getCurrentColor() {
-        if (currentColor == selectedColor.BLUE) {
+        if (currentColor == Color.BLUE) {
             return Color.BLUE;
-        } else if (currentColor == selectedColor.RED) {
+        } else if (currentColor == Color.RED) {
             return Color.RED;
-        } else if (currentColor == selectedColor.ORANGE) {
+        } else if (currentColor == Color.ORANGE) {
             return Color.ORANGE;
-        } else if (currentColor == selectedColor.YELLOW) {
+        } else if (currentColor == Color.YELLOW) {
             return Color.YELLOW;
-        } else if (currentColor == selectedColor.GREEN) {
+        } else if (currentColor == Color.GREEN) {
             return Color.GREEN;
-        } else if (currentColor == selectedColor.PINK) {
+        } else if (currentColor == Color.PINK) {
             return Color.PINK;
         } else {
             return Color.BLACK;
         }
     }
-}
 
-//public class Model {
-//
-//    private tool currentTool = tool.SELECT;
-//    private Integer currentThickness = 0;
-//    private Color currentColor = Color.BLACK;
-//    private CustomShape currentDrawingShape = null;
-//    private CustomShape currentSelectedShape = null;
-//
-//    private ArrayList<CustomShape> shapeList = new ArrayList<CustomShape>();
-//
-//    public tool getCurrentTool() {
-//        return currentTool;
-//    }
-//
-//    public Color getCurrentColor() {
-//        return currentColor;
-//    }
-//
-//    public Integer getCurrentThickness() {
-//        return currentThickness;
-//    }
-//
-//    public CustomShape getDrawingShape() {
-//        return currentDrawingShape;
-//    }
-//
-//    public CustomShape getSelectedShape() {
-//        return currentSelectedShape;
-//    }
-//
-//    public ArrayList<CustomShape> getShapeList() {
-//        return shapeList;
-//    }
-//
-//    public void addShapeToQueue() {
-//        shapeList.add(currentDrawingShape);
-//        currentDrawingShape = null;
-//    }
-//
-////    public void drawTheShape(Graphics2D g2) {
-////        int x = Math.min(x1, x2);
-////        int y = Math.min(y1, y2);
-////        int width = Math.abs(x1 - x2);
-////        int height = Math.abs(y1 - y2);
-////        currentDrawingShape = new CustomShape(new Rectangle2D.Float(x,y,width,height), Color.green, 1);
-////        g2.setColor(Color.BLACK);
-////
-////    }
-//
-//
-//
-//
-//}
+    public void setCurrentColor(Color mycolor) {
+        currentColor = mycolor;
+    }
+
+    public void setCurrentTool(selectedTool myTool) {
+        currentTool = myTool;
+    }
+
+    public void setCurrentLine(Integer myLine) {
+        currentLine = myLine;
+    }
+}

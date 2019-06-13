@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class ColorLayout extends JPanel {
+    Model model;
+
     public void resetAllOtherColors(JButton[] arrayofButtons, JButton onlyButtonKept) {
         for (int i = 0; i < arrayofButtons.length; ++i) {
             if (arrayofButtons[i] != onlyButtonKept) {
@@ -13,7 +15,9 @@ class ColorLayout extends JPanel {
         }
     }
 
-    public ColorLayout() {
+    public ColorLayout(Model m) {
+        model = m; // set model
+
         this.setLayout(new GridLayout(3, 2));
 
         // Add colour button icons

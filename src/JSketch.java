@@ -22,6 +22,9 @@ public class JSketch {
     }
 
     public JSketch() {
+        // Initialize Model
+        Model model = new Model();
+
         // create program
         mainFrame = new JFrame("J-Sketch");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,10 +50,10 @@ public class JSketch {
         leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
-        toolPanel = new ToolBarLayout(); // create toolpanel
-        colorPanel = new ColorLayout(); // create color panle
+        toolPanel = new ToolBarLayout(model); // create toolpanel
+        colorPanel = new ColorLayout(model); // create color panle
         chooserPanel = new ChooserLayout(); // create chooser panel
-        linePanel = new LineLayout();
+        linePanel = new LineLayout(model);
 
         // add toolpanel to left panel
         leftPanel.add(toolPanel);
@@ -59,7 +62,7 @@ public class JSketch {
         leftPanel.add(linePanel);
 
         // add canvas
-        canvasPanel = new DrawingCanvas();
+        canvasPanel = new DrawingCanvas(model);
 
         mainFrame.add(leftPanel, BorderLayout.WEST);
         mainFrame.add(canvasPanel, BorderLayout.CENTER);
@@ -74,7 +77,7 @@ public class JSketch {
 }
 
 class DrawingCanvas extends JPanel {
-    private Model model = new Model();
+    Model model;
 
     Point startDrag, endDrag;
 
@@ -87,15 +90,16 @@ class DrawingCanvas extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 //        paintAllShapes(g2);
 //        shapeModel.drawTheShape(g2);
-        g2.setStroke(new BasicStroke(model.getLineThickness()));
 
         for (CustomShape s: shapes) {
+            g2.setStroke(new BasicStroke(s.thickness));
             g2.setPaint(s.lineColor);
             g2.draw(s.shape);
         }
 
         if (startDrag != null && endDrag != null) {
             g2.setPaint(model.getCurrentColor());
+            g2.setStroke(new BasicStroke(model.getLineThickness()));
             CustomShape cShape = new CustomShape(makeRectangle(startDrag.x,startDrag.y,endDrag.x,endDrag.y), model.getCurrentColor(), model.getLineThickness());
 //            Shape r = makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
             g2.draw(cShape.shape);
@@ -108,13 +112,17 @@ class DrawingCanvas extends JPanel {
 
     private CustomShape currentDrawingShape;
 
-    public DrawingCanvas() {
+    public DrawingCanvas(Model m) {
+        model = m;
+
         setBorder(BorderFactory.createStrokeBorder(new BasicStroke(5.0f)));
 
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+
                 startDrag = new Point(e.getX(), e.getY());
                 endDrag = startDrag;
+
 
                 System.out.println("hello");
                 repaint();
@@ -137,14 +145,6 @@ class DrawingCanvas extends JPanel {
                 repaint();
             }
         });
-    }
-}
-
-class ChooserLayout extends JPanel {
-    public ChooserLayout() {
-        this.setLayout(new GridLayout(1,1));
-        JButton chooserButton = new JButton("Chooser");
-        this.add(chooserButton);
     }
 }
 

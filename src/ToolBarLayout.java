@@ -25,6 +25,8 @@ class ToolBarLayout extends JPanel {
     private Image clickedSquareImg;
     private Image clickedFillImg;
 
+    Model model;
+
     public void setAllOtherButtonsToDefault(JButton[] arrayofButtons, JButton onlyButtonKept) {
         for (int i = 0; i < arrayofButtons.length; ++i) {
             if (arrayofButtons[i] != onlyButtonKept) {
@@ -45,7 +47,8 @@ class ToolBarLayout extends JPanel {
         }
     }
 
-    public ToolBarLayout() {
+    public ToolBarLayout(Model m) {
+        model = m; // set model
         this.setLayout(new GridLayout(3, 2));
 
         try {
