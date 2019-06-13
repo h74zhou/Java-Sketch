@@ -85,6 +85,19 @@ class DrawingCanvas extends JPanel {
         return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
     }
 
+    private Ellipse2D.Float makeCircle(int x1, int y1, int x2, int y2) {
+        int width = Math.abs(x1 - x2);
+        int height = Math.abs(y1 - y2);
+        int radius = Math.max(width,height);
+        return new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), radius, radius);
+    }
+
+    private Line2D.Float makeLine(int x1, int y1, int x2, int y2) {
+        return new Line2D.Float(x1, y1, x2, y2);
+    }
+
+    private void createTheShape(int x1, int y1, int x2, int y2, )
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;

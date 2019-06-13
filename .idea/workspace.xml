@@ -2,38 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea6b7927-045e-4520-ab93-d9d24b483106" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ChooserLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ChooserLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ChooserLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ColorLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/CustomShape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/CustomShape.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/DrawingCanvas$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/DrawingCanvas$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/DrawingCanvas$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/DrawingCanvas$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/DrawingCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/DrawingCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/JSketch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/JSketch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/LineLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java-Sketch/ToolBarLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/selectedColor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java-Sketch/selectedLine.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ColorLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ColorLayout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/JSketch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JSketch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LineLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LineLayout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToolBarLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToolBarLayout.java" afterDir="false" />
     </list>
@@ -49,14 +19,14 @@
     <option name="delegatedBuild" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.458184">
+    <splitter split-orientation="horizontal" split-proportion="0.20175953">
       <split-first>
         <leaf>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Model.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+                <state relative-caret-position="570">
+                  <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1879#1880#0" expanded="true" />
@@ -70,11 +40,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/ToolBarLayout.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-172">
-                  <caret line="52" selection-start-line="52" selection-end-line="52" />
+                <state relative-caret-position="1134">
+                  <caret line="129" column="13" lean-forward="true" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -94,11 +64,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/LineLayout.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="103">
-                  <caret line="16" column="75" lean-forward="true" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
+                <state relative-caret-position="171">
+                  <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -109,8 +79,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/ColorLayout.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="342">
-                  <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+                <state relative-caret-position="228">
+                  <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -125,10 +95,12 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/JSketch.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="491">
-                  <caret line="101" column="65" selection-start-line="101" selection-start-column="65" selection-end-line="101" selection-end-column="65" />
+                <state relative-caret-position="186">
+                  <caret line="98" column="64" selection-start-line="98" selection-start-column="64" selection-end-line="98" selection-end-column="64" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="e#2947#2948#0" expanded="true" />
+                    <element signature="e#3002#3003#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -169,10 +141,10 @@
         <option value="$PROJECT_DIR$/src/DragCircle.java" />
         <option value="$PROJECT_DIR$/src/GlobalState.java" />
         <option value="$PROJECT_DIR$/src/ChooserLayout.java" />
-        <option value="$PROJECT_DIR$/src/ToolBarLayout.java" />
+        <option value="$PROJECT_DIR$/src/LineLayout.java" />
         <option value="$PROJECT_DIR$/src/ColorLayout.java" />
         <option value="$PROJECT_DIR$/src/Model.java" />
-        <option value="$PROJECT_DIR$/src/LineLayout.java" />
+        <option value="$PROJECT_DIR$/src/ToolBarLayout.java" />
         <option value="$PROJECT_DIR$/src/JSketch.java" />
       </list>
     </option>
@@ -273,7 +245,7 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1086262" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09211928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
@@ -341,16 +313,6 @@
     <entry file="file://$PROJECT_DIR$/src/resources/clickedFill.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ColorLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ChooserLayout.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -361,10 +323,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ToolBarLayout.java">
+    <entry file="file://$PROJECT_DIR$/src/LineLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-172">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        <state relative-caret-position="171">
+          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ColorLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -373,8 +345,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        <state relative-caret-position="570">
+          <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1879#1880#0" expanded="true" />
@@ -387,10 +359,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LineLayout.java">
+    <entry file="file://$PROJECT_DIR$/src/ToolBarLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="16" column="75" lean-forward="true" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
+        <state relative-caret-position="1134">
+          <caret line="129" column="13" lean-forward="true" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -399,10 +371,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JSketch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="101" column="65" selection-start-line="101" selection-start-column="65" selection-end-line="101" selection-end-column="65" />
+        <state relative-caret-position="186">
+          <caret line="98" column="64" selection-start-line="98" selection-start-column="64" selection-end-line="98" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2947#2948#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
           </folding>
         </state>
       </provider>

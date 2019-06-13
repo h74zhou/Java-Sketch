@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // this is meant to represent the model (also acts as a storage system for all objects)
 
 enum selectedTool {
-    SELECT, ERASE, LINE, CIRCLE, RECTANGLE, FILL
+    SELECT, ERASER, LINE, CIRCLE, SQUARE, FILL
 }
 
 class CustomShape {

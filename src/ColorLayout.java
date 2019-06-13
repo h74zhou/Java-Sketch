@@ -38,6 +38,7 @@ class ColorLayout extends JPanel {
 
         blueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                model.setCurrentColor(Color.BLUE);
                 blueButton.setBorderPainted(true);
                 resetAllOtherColors(colorArray, blueButton);
             }
@@ -45,6 +46,7 @@ class ColorLayout extends JPanel {
 
         redButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                model.setCurrentColor(Color.RED);
                 redButton.setBorderPainted(true);
                 resetAllOtherColors(colorArray, redButton);
             }
@@ -52,6 +54,7 @@ class ColorLayout extends JPanel {
 
         orangeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                model.setCurrentColor(Color.ORANGE);
                 orangeButton.setBorderPainted(true);
                 resetAllOtherColors(colorArray, orangeButton);
             }
@@ -59,6 +62,7 @@ class ColorLayout extends JPanel {
 
         yellowButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                model.setCurrentColor(Color.YELLOW);
                 yellowButton.setBorderPainted(true);
                 resetAllOtherColors(colorArray, yellowButton);
             }
@@ -66,6 +70,7 @@ class ColorLayout extends JPanel {
 
         greenButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                model.setCurrentColor(Color.GREEN);
                 greenButton.setBorderPainted(true);
                 resetAllOtherColors(colorArray, greenButton);
             }
@@ -73,6 +78,7 @@ class ColorLayout extends JPanel {
 
         pinkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                model.setCurrentColor(Color.PINK);
                 pinkButton.setBorderPainted(true);
                 resetAllOtherColors(colorArray, pinkButton);
             }
@@ -85,6 +91,7 @@ class ColorLayout extends JPanel {
             this.add(colorArray[i]);
         }
 
+        blueButton.setBorderPainted(true); // set init state
 
     }
 }
