@@ -56,6 +56,10 @@ public class Model {
         }
     }
 
+    public selectedTool getCurrentTool() {
+        return currentTool;
+    }
+
     public void setCurrentColor(Color mycolor) {
         currentColor = mycolor;
     }

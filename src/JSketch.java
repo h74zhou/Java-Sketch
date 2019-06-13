@@ -81,28 +81,57 @@ class DrawingCanvas extends JPanel {
 
     Point startDrag, endDrag;
 
+    // array of all the shapes
+    ArrayList<CustomShape> shapes = new ArrayList<CustomShape>();
+
     private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
         return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
     }
 
     private Ellipse2D.Float makeCircle(int x1, int y1, int x2, int y2) {
-        int width = Math.abs(x1 - x2);
-        int height = Math.abs(y1 - y2);
-        int radius = Math.max(width,height);
-        return new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), radius, radius);
+        int minX = Math.min(x1, x2);
+        int minY = Math.min(y1, y2);
+        int maxX = Math.max(x1, x2);
+        int maxY = Math.max(y1, y2);
+
+        int radius = Math.min(maxX - minX, maxY - minY);
+
+        if (minX < x1) {
+            minX = x1 - radius;
+        }
+
+        if (minY < y1) {
+            minY = y1 - radius;
+        }
+
+        return new Ellipse2D.Float(minX, minY, radius, radius);
     }
 
     private Line2D.Float makeLine(int x1, int y1, int x2, int y2) {
         return new Line2D.Float(x1, y1, x2, y2);
     }
 
-    private void createTheShape(int x1, int y1, int x2, int y2, )
+    private CustomShape createTheShape() {
+        if (model.getCurrentTool() == selectedTool.SQUARE) {
+            return new CustomShape(makeRectangle(startDrag.x,startDrag.y,endDrag.x,endDrag.y), model.getCurrentColor(), model.getLineThickness());
+        } else if (model.getCurrentTool() == selectedTool.CIRCLE) {
+            return new CustomShape(makeCircle(startDrag.x,startDrag.y,endDrag.x,endDrag.y), model.getCurrentColor(), model.getLineThickness());
+        } /*else if (model.getCurrentTool() == selectedTool.LINE)*/ else {
+            return new CustomShape(makeLine(startDrag.x,startDrag.y,endDrag.x,endDrag.y), model.getCurrentColor(), model.getLineThickness());
+        }
+    }
+
+    private Boolean isDrawingTool() {
+        if (model.getCurrentTool() == selectedTool.LINE ||
+                model.getCurrentTool() == selectedTool.CIRCLE ||
+                model.getCurrentTool() == selectedTool.SQUARE) {
+            return true;
+        } return false;
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-//        paintAllShapes(g2);
-//        shapeModel.drawTheShape(g2);
 
         for (CustomShape s: shapes) {
             g2.setStroke(new BasicStroke(s.thickness));
@@ -110,18 +139,24 @@ class DrawingCanvas extends JPanel {
             g2.draw(s.shape);
         }
 
-        if (startDrag != null && endDrag != null) {
-            g2.setPaint(model.getCurrentColor());
-            g2.setStroke(new BasicStroke(model.getLineThickness()));
-            CustomShape cShape = new CustomShape(makeRectangle(startDrag.x,startDrag.y,endDrag.x,endDrag.y), model.getCurrentColor(), model.getLineThickness());
-//            Shape r = makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
-            g2.draw(cShape.shape);
+        if (isDrawingTool()) {
+            if (startDrag != null && endDrag != null) {
+                g2.setPaint(model.getCurrentColor());
+                g2.setStroke(new BasicStroke(model.getLineThickness()));
+                CustomShape cShape = createTheShape();
+                g2.draw(cShape.shape);
+            }
         }
-
     }
 
-    // array of all the shapes
-    ArrayList<CustomShape> shapes = new ArrayList<CustomShape>();
+    public void eraseShape(int x, int y) {
+        for (int i = shapes.size(); i > 0; --i) {
+            if (shapes.get(i-1).shape.contains(x,y) || shapes.get(i-1).shape.intersects(x - 2, y - 2, 5, 5)) {
+                shapes.remove(i-1); // removes starting at (2,2) off from origin with a 5 by 5 box
+                break;
+            }
+        }
+    }
 
     private CustomShape currentDrawingShape;
 
@@ -136,15 +171,19 @@ class DrawingCanvas extends JPanel {
                 startDrag = new Point(e.getX(), e.getY());
                 endDrag = startDrag;
 
+                if (model.getCurrentTool() == selectedTool.ERASER) {
+                    eraseShape(e.getX(), e.getY());
+                }
 
-                System.out.println("hello");
                 repaint();
             }
 
             public void mouseReleased(MouseEvent e) {
-                currentDrawingShape = new CustomShape(makeRectangle(startDrag.x,startDrag.y,e.getX(),e.getY()), model.getCurrentColor(), model.getLineThickness());
-//                Shape r = makeRectangle(startDrag.x, startDrag.y, e.getX(), e.getY());
-                shapes.add(currentDrawingShape);
+
+                if (isDrawingTool()) {
+                    currentDrawingShape = createTheShape();
+                    shapes.add(currentDrawingShape);
+                }
                 startDrag = null;
                 endDrag = null;
                 repaint();
