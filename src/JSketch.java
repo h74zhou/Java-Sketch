@@ -6,7 +6,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.util.*;
 
 
 public class JSketch {
@@ -21,7 +26,7 @@ public class JSketch {
         JSketch program = new JSketch();
     }
 
-    JSketch() {
+    public JSketch() {
         // create program
         mainFrame = new JFrame("J-Sketch");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,15 +79,70 @@ public class JSketch {
 }
 
 class DrawingCanvas extends JPanel {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    private Model model = new Model();
+
+    Point startDrag, endDrag;
+
+    private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
+        return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+//        paintAllShapes(g2);
+//        shapeModel.drawTheShape(g2);
+        g2.setStroke(new BasicStroke(model.getLineThickness()));
+
+        for (CustomShape s: shapes) {
+            g2.setPaint(s.lineColor);
+            g2.draw(s.shape);
+        }
+
+        if (startDrag != null && endDrag != null) {
+            g2.setPaint(model.getCurrentColor());
+            CustomShape cShape = new CustomShape(makeRectangle(startDrag.x,startDrag.y,endDrag.x,endDrag.y), model.getCurrentColor(), model.getLineThickness());
+//            Shape r = makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
+            g2.draw(cShape.shape);
+        }
+
+    }
+
+    // array of all the shapes
+    ArrayList<CustomShape> shapes = new ArrayList<CustomShape>();
+
+    private CustomShape currentDrawingShape;
 
     public DrawingCanvas() {
         setBorder(BorderFactory.createStrokeBorder(new BasicStroke(5.0f)));
-    }
 
+        this.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                startDrag = new Point(e.getX(), e.getY());
+                endDrag = startDrag;
+
+                System.out.println("hello");
+                repaint();
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                currentDrawingShape = new CustomShape(makeRectangle(startDrag.x,startDrag.y,e.getX(),e.getY()), model.getCurrentColor(), model.getLineThickness());
+//                Shape r = makeRectangle(startDrag.x, startDrag.y, e.getX(), e.getY());
+                shapes.add(currentDrawingShape);
+                startDrag = null;
+                endDrag = null;
+                repaint();
+            }
+
+        });
+
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                endDrag = new Point(e.getX(), e.getY());
+                repaint();
+            }
+        });
+    }
 }
 
 class ToolBarLayout extends JPanel {
@@ -132,6 +192,7 @@ class ToolBarLayout extends JPanel {
         this.add(circleButton);
         this.add(squareButton);
         this.add(fillButton);
+        
     }
 }
 
