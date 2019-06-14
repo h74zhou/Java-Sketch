@@ -1,14 +1,13 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
+import java.awt.event.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 class ToolBarLayout extends JPanel {
 
-    private JButton pointerButton = new JButton();
+    public JButton pointerButton = new JButton();
     private JButton eraserButton = new JButton();
     private JButton lineButton = new JButton();
     private JButton circleButton = new JButton();
@@ -48,6 +47,8 @@ class ToolBarLayout extends JPanel {
             }
         }
     }
+
+    private JPanel canvasPanel;
 
     public ToolBarLayout(Model m) {
         model = m; // set model
@@ -94,6 +95,7 @@ class ToolBarLayout extends JPanel {
                 model.setCurrentTool(selectedTool.ERASER);
                 eraserButton.setIcon(new ImageIcon(clickedEraserImg));
                 setAllOtherButtonsToDefault(toolButtonArray, eraserButton);
+                model.selectedShape = null;
             }
         });
 
@@ -102,6 +104,7 @@ class ToolBarLayout extends JPanel {
                 model.setCurrentTool(selectedTool.LINE);
                 lineButton.setIcon(new ImageIcon(clickedLineImg));
                 setAllOtherButtonsToDefault(toolButtonArray, lineButton);
+                model.selectedShape = null;
             }
         });
 
@@ -110,6 +113,7 @@ class ToolBarLayout extends JPanel {
                 model.setCurrentTool(selectedTool.CIRCLE);
                 circleButton.setIcon(new ImageIcon(clickedCircleImg));
                 setAllOtherButtonsToDefault(toolButtonArray, circleButton);
+                model.selectedShape = null;
             }
         });
 
@@ -118,8 +122,8 @@ class ToolBarLayout extends JPanel {
                 model.setCurrentTool(selectedTool.SQUARE);
                 squareButton.setIcon(new ImageIcon(clickedSquareImg));
                 setAllOtherButtonsToDefault(toolButtonArray, squareButton);
+                model.selectedShape = null;
             }
-
         });
 
         fillButton.addActionListener(new ActionListener() {
@@ -127,6 +131,8 @@ class ToolBarLayout extends JPanel {
                 model.setCurrentTool(selectedTool.FILL);
                 fillButton.setIcon(new ImageIcon(clickedFillImg));
                 setAllOtherButtonsToDefault(toolButtonArray, fillButton);
+                model.selectedShape = null;
+
             }
         });
 

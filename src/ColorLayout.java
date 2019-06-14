@@ -7,6 +7,13 @@ import java.awt.event.ActionListener;
 class ColorLayout extends JPanel {
     Model model;
 
+    public JButton blueButton;
+    public JButton redButton;
+    public JButton orangeButton;
+    public JButton yellowButton;
+    public JButton pinkButton;
+    public JButton greenButton;
+
     public void resetAllOtherColors(JButton[] arrayofButtons, JButton onlyButtonKept) {
         for (int i = 0; i < arrayofButtons.length; ++i) {
             if (arrayofButtons[i] != onlyButtonKept) {
@@ -15,23 +22,53 @@ class ColorLayout extends JPanel {
         }
     }
 
+    public void setBlueButtonToTrue(JButton [] colorArray) {
+        blueButton.setBorderPainted(true);
+        resetAllOtherColors(colorArray, blueButton);
+    }
+
+    public void setGreenButtonToTrue(JButton [] colorArray) {
+        greenButton.setBorderPainted(true);
+        resetAllOtherColors(colorArray, greenButton);
+    }
+
+    public void setRedButtonToTrue(JButton [] colorArray) {
+        redButton.setBorderPainted(true);
+        resetAllOtherColors(colorArray, redButton);
+    }
+
+    public void setOrangeButtonToTrue(JButton [] colorArray) {
+        orangeButton.setBorderPainted(true);
+        resetAllOtherColors(colorArray, orangeButton);
+    }
+
+    public void setPinkButtonToTrue(JButton [] colorArray) {
+        pinkButton.setBorderPainted(true);
+        resetAllOtherColors(colorArray, pinkButton);
+    }
+
+    public void setYellowButtonToTrue(JButton [] colorArray) {
+        yellowButton.setBorderPainted(true);
+        resetAllOtherColors(colorArray, yellowButton);
+    }
+
     public ColorLayout(Model m) {
         model = m; // set model
 
         this.setLayout(new GridLayout(3, 2));
 
         // Add colour button icons
-        JButton blueButton = new JButton();
+        blueButton = new JButton();
         blueButton.setBackground(Color.blue);
-        JButton redButton = new JButton();
+        redButton = new JButton();
         redButton.setBackground(Color.red);
-        JButton orangeButton = new JButton();
+        orangeButton = new JButton();
         orangeButton.setBackground(Color.orange);
-        JButton yellowButton = new JButton();
+        yellowButton = new JButton();
         yellowButton.setBackground(Color.yellow);
-        JButton greenButton = new JButton();
+        greenButton = new JButton();
         greenButton.setBackground(Color.green);
-        JButton pinkButton = new JButton();
+        pinkButton = new JButton();
         pinkButton.setBackground(Color.pink);
 
         JButton[] colorArray = new JButton[] {blueButton, redButton, orangeButton, yellowButton, greenButton, pinkButton};
@@ -39,48 +76,42 @@ class ColorLayout extends JPanel {
         blueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.setCurrentColor(Color.BLUE);
-                blueButton.setBorderPainted(true);
-                resetAllOtherColors(colorArray, blueButton);
+                setBlueButtonToTrue(colorArray);
             }
         });
 
         redButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.setCurrentColor(Color.RED);
-                redButton.setBorderPainted(true);
-                resetAllOtherColors(colorArray, redButton);
+                setRedButtonToTrue(colorArray);
             }
         });
 
         orangeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.setCurrentColor(Color.ORANGE);
-                orangeButton.setBorderPainted(true);
-                resetAllOtherColors(colorArray, orangeButton);
+                setOrangeButtonToTrue(colorArray);
             }
         });
 
         yellowButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.setCurrentColor(Color.YELLOW);
-                yellowButton.setBorderPainted(true);
-                resetAllOtherColors(colorArray, yellowButton);
+                setYellowButtonToTrue(colorArray);
             }
         });
 
         greenButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.setCurrentColor(Color.GREEN);
-                greenButton.setBorderPainted(true);
-                resetAllOtherColors(colorArray, greenButton);
+                setGreenButtonToTrue(colorArray);
             }
         });
 
         pinkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 model.setCurrentColor(Color.PINK);
-                pinkButton.setBorderPainted(true);
-                resetAllOtherColors(colorArray, pinkButton);
+                setPinkButtonToTrue(colorArray);
             }
         });
 

@@ -4,10 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.peer.CanvasPeer;
+import java.io.*;
 import java.util.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 
 public class JSketch {
@@ -26,6 +32,8 @@ public class JSketch {
         // Initialize Model
         Model model = new Model();
 
+        JFileChooser fileChooser = new JFileChooser();
+
         // create program
         mainFrame = new JFrame("J-Sketch");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,8 +49,71 @@ public class JSketch {
 
         // add each file item
         newMenu = new JMenuItem("New");
+        newMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.shapes.clear();
+                canvasPanel.repaint();
+            }
+        });
+
+        // The load/save code was taken from "Filechoosers" example on Java Oracle doc
+        // https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html
         loadMenu = new JMenuItem("Load");
+        loadMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (fileChooser.showOpenDialog(mainFrame) == JFileChooser.APPROVE_OPTION) {
+                    File loadFile = fileChooser.getSelectedFile();
+                    String extension = loadFile.getName().substring(loadFile.getName().lastIndexOf(".") + 1, loadFile.getName().length());
+
+                    try {
+                        FileInputStream fileInputStream = new FileInputStream(loadFile);
+                        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                        ArrayList<CustomShape> loadedShapes = (ArrayList<CustomShape>) objectInputStream.readObject();
+
+                        model.shapes = loadedShapes;
+                        objectInputStream.close();
+                    } catch (FileNotFoundException e1){
+                        System.out.println("YOU SCREWED UP 1");
+                    } catch (ClassNotFoundException e2) {
+                        System.out.println("YOU SCREWED UP 2");
+                    } catch (IOException e3) {
+                        System.out.println("YOU SCREWED UP 3");
+                    }
+                }
+                canvasPanel.repaint();
+            }
+        });
+
         saveMenu = new JMenuItem("Save");
+        saveMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (fileChooser.showSaveDialog(mainFrame) == JFileChooser.APPROVE_OPTION) {
+                    File savedfile = fileChooser.getSelectedFile();
+                    String savedFilePath = savedfile.getAbsolutePath();
+                    if (!savedFilePath.endsWith(".txt")) {
+                        savedfile = new File(savedFilePath + ".txt");
+                    }
+
+                    try {
+                        FileOutputStream fileOutputStream = new FileOutputStream(savedfile);
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                        objectOutputStream.writeObject(model.shapes);
+                        objectOutputStream.close();
+                    } catch (FileNotFoundException e1) {
+                        System.out.println("YOU SCREWED UP 1");
+                    } catch (IOException e2) {
+                        System.out.println("YOU SCREWED UP 2");
+                        e2.printStackTrace();
+                    }
+
+                }
+            }
+        });
+
+
         fileMenu.add(newMenu);
         fileMenu.add(loadMenu);
         fileMenu.add(saveMenu);
@@ -52,8 +123,9 @@ public class JSketch {
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         toolPanel = new ToolBarLayout(model); // create toolpanel
+
         colorPanel = new ColorLayout(model); // create color panle
-        chooserPanel = new ChooserLayout(); // create chooser panel
+        chooserPanel = new ChooserLayout(model); // create chooser panel
         linePanel = new LineLayout(model);
 
         // add toolpanel to left panel
@@ -72,18 +144,13 @@ public class JSketch {
         mainFrame.setSize(900,600);
         mainFrame.setResizable(false);
         mainFrame.setVisible(true);
-
     }
-
 }
 
 class DrawingCanvas extends JPanel {
     Model model;
-
+    ColorLayout colorLayout;
     Point startDrag, endDrag;
-
-    // array of all the shapes
-    ArrayList<CustomShape> shapes = new ArrayList<CustomShape>();
 
     private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
         return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
@@ -133,11 +200,18 @@ class DrawingCanvas extends JPanel {
     private Line2D.Float dummyLineObject = new Line2D.Float(0,0,0,0);
 
     public void paintComponent(Graphics g) {
+        // general structure of paintComponent, taken from Oracle Doc
+        // https://docs.oracle.com/javase/tutorial/2d/geometry/primitives.html
+
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        for (CustomShape s: shapes) {
-            g2.setStroke(new BasicStroke(s.thickness));
+        for (CustomShape s: model.shapes) {
+            if (s == model.selectedShape) {
+                g2.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0));
+            } else {
+                g2.setStroke(new BasicStroke(s.thickness));
+            }
 
             if (!s.shape.getClass().equals(dummyLineObject.getClass())) {
                 g2.setColor(s.lineColor);
@@ -167,58 +241,95 @@ class DrawingCanvas extends JPanel {
     }
 
     public void eraseShape(int x, int y) {
-        for (int i = 0; i < shapes.size(); ++i) {
-            if (shapes.get(i).shape.contains(x,y) || shapes.get(i).shape.intersects(x-4,y-4, 7, 7)) {
-                shapes.remove(i);
+        // LOOP BACKWARDS, so can select the "upper" layer first
+        for (int i = model.shapes.size() - 1; i >= 0; i--) {
+            if (model.shapes.get(i).shape.contains(x,y) || model.shapes.get(i).shape.intersects(x-4,y-4, 7, 7)) {
+                model.shapes.remove(i);
                 break;
             }
         }
     }
 
-//    public void fillShape(int x, int y) {
-//        for (int i = 0; i < shapes.size(); ++i) {
-//            if (shapes.get(i).shape.contains(x,y) || shapes.get(i).shape.intersects(x-4,y-4, 7, 7)) {
-//                shapes.lin
-//                break;
-//            }
-//        }
-//    }
+    public void fillShape(int x, int y) {
+        // LOOP BACKWARDS, so can select the "upper" layer first
+        for (int i = model.shapes.size() - 1; i >= 0; i--) {
+            if (model.shapes.get(i).shape.contains(x,y) || model.shapes.get(i).shape.intersects(x-4,y-4, 7, 7)) {
+                model.shapes.get(i).lineColor = model.getCurrentColor();
+                break;
+            }
+        }
+    }
 
-//    public void selectShape(int x, int y) {
-//        for (int i = shapes.size(); i > 0; --i) {
-//            if (shapes.get(i-1).shape.contains(x, y) || shapes.get(i-1).shape.intersects(x - 1, y - 1, 5, 5)) {
-//                shapes.get(i-1).c
-//            }
-//        }
-//    }
+    double preSetX;
+    double preSetY;
+
+    // dashed lines code was taken from Java Oracle doc
+    // https://docs.oracle.com/javase/tutorial/2d/geometry/strokeandfill.html
+    public void selectShape(int x, int y) {
+        for (int i = model.shapes.size() - 1; i >= 0; i--) {
+            if (model.shapes.get(i).shape.contains(x, y) || model.shapes.get(i).shape.intersects(x - 4, y - 4, 7, 7)) {
+
+                model.selectedShape = model.shapes.get(i);
+                preSetX = model.selectedShape.shape.getBounds().getX() - x; // set preset x and y for dragging
+                preSetY = model.selectedShape.shape.getBounds().getY() - y;
+
+
+//                if (model.selectedShape.lineColor == Color.BLUE) {
+//                    model.setCurrentColor(Color.BLUE);
+//                    colorLayout.setBlueButtonToTrue();
+//                    colorLayout.resetAllOtherColors();
+//                }
+
+            }
+        }
+
+    }
+
+    // Affline transfomrations code taken from java oracle docs
+    // https://docs.oracle.com/javase/7/docs/api/java/awt/geom/AffineTransform.html
+    public void moveShape(int x, int y) {
+        if (model.selectedShape != null) {
+            double oldX = model.selectedShape.shape.getBounds().getX();
+            double oldY = model.selectedShape.shape.getBounds().getY();
+
+            AffineTransform newPosition = new AffineTransform();
+
+            newPosition.translate(x - oldX + preSetX, y - oldY + preSetY);
+
+            if (model.selectedShape.shape.getClass().equals(dummyLineObject.getClass())) {
+                model.selectedShape.borderColor = model.selectedShape.lineColor;
+            }
+            model.selectedShape.shape = newPosition.createTransformedShape(model.selectedShape.shape);
+        }
+    }
 
     private CustomShape currentDrawingShape;
 
     public DrawingCanvas(Model m) {
+        // Listern Code is based off of in class example
         model = m;
-
+//        colorLayout = myColors;
         setBorder(BorderFactory.createStrokeBorder(new BasicStroke(5.0f)));
 
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-
                 startDrag = new Point(e.getX(), e.getY());
                 endDrag = startDrag;
 
                 if (model.getCurrentTool() == selectedTool.ERASER) {
                     eraseShape(e.getX(), e.getY());
                 } else if (model.getCurrentTool() == selectedTool.SELECT) {
-
+                    selectShape(e.getX(), e.getY());
+                } else if (model.getCurrentTool() == selectedTool.FILL) {
+                    fillShape(e.getX(), e.getY());
                 }
-
                 repaint();
             }
 
             public void mouseReleased(MouseEvent e) {
-
                 if (isDrawingTool()) {
                     currentDrawingShape = createTheShape();
-                    shapes.add(currentDrawingShape);
+                    model.shapes.add(currentDrawingShape);
                 }
                 startDrag = null;
                 endDrag = null;
@@ -230,7 +341,26 @@ class DrawingCanvas extends JPanel {
         this.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
                 endDrag = new Point(e.getX(), e.getY());
+                if (model.getCurrentTool() == selectedTool.SELECT && model.selectedShape != null) {
+                    moveShape(e.getX(), e.getY());
+                }
+
                 repaint();
+            }
+        });
+
+        // the following code to detect escape key using Keyboard focus manager is
+        // taken from ORACLE docs.
+        // https://docs.oracle.com/javase/tutorial/uiswing/misc/focus.html
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_ESCAPE && e.getID() == KeyEvent.KEY_PRESSED) {
+                    System.out.println("ESCAPE KEY PRESSED");
+                    model.selectedShape = null;
+                    repaint();
+                }
+                return false;
             }
         });
     }
